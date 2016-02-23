@@ -1,15 +1,6 @@
 <?php
-function my_scripts_method() {
-	if(is_page( 'testing page' ) ) {
-		wp_enqueue_script( 'event-js', "https://sne.space/sne/SN1990aa-script.js", array('bokeh'));
-		wp_enqueue_script( 'bokeh', "https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.js", array('jquery'));
-		wp_enqueue_script( 'bokeh-widgets', "https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.11.0.min.js", array('jquery'));
-		wp_enqueue_style( 'parent-style', "https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.css");
-		wp_enqueue_style( 'parent-style', "https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.11.0.min.css");
-	}
-}
 function resize_iframe() {
-	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/parabola-child/resize-iframe.js' );
+	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/sne-child-theme/resize-iframe.js' );
 }
 function custom_rewrite_basic() {
 	add_rewrite_rule('^event/(.+)/?', 'index.php?page_id=1320&eventname=$matches[1]', 'top');
