@@ -22,6 +22,7 @@ get_header(); ?>
 			<?php cryout_before_content_hook(); ?>
 
 			<div class="page type-page status-publish hentry">
+			<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
 			<iframe width=100% src="https://sne.space/sne/<?php echo $wp_query->query_vars['eventname']; ?>.html" scrolling="no" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 			</div>
 
