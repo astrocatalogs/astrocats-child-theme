@@ -1,4 +1,5 @@
 <?php
+$template_name = get_post_meta( $wp_query->post->ID, '_wp_page_template', true );
 function resize_iframe() {
 	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/sne-child-theme/resize-iframe.js' );
 }
@@ -15,7 +16,12 @@ function event_title( $title ) {
     return $title;
 }
 function theme_enqueue_styles() {
-    wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+	if ( $template_name = 'event.php' ) {
+		wp_enqueue_style( 'bokeh-css', "https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.css");
+		wp_enqueue_script( 'bokeh-js', "https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.js");
+		wp_enqueue_style( 'event', 'event.css', array( 'bokeh-css' ) );
+	}
+	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
 
 #add_action('wp_enqueue_scripts', 'my_scripts_method');

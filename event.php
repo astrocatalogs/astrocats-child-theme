@@ -22,10 +22,10 @@ get_header(); ?>
 			<?php cryout_before_content_hook(); ?>
 
 			<div class="page type-page status-publish hentry">
-			<?php if (file_exists('/var/www/html/sne/sne/'.rawurldecode($wp_query->query_vars['eventname']).'.html')) { ?>
-				<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
+			<?php $fileloc = '/var/www/html/sne/sne/'.rawurldecode($wp_query->query_vars['eventname']).'.html'; ?>
+			<?php if (file_exists($fileloc)) { ?>
 				<div style="overflow:auto;-webkit-overflow-scrolling:touch">
-				<iframe width=100% src="https://sne.space/sne/<?php echo $wp_query->query_vars['eventname']; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
+				<?php include($fileloc); ?>
 				</div>
 			<?php } else { ?>
 				<div style="text-align:center;">Error: Invalid event name "<?php echo $wp_query->query_vars['eventname']; ?>"! [<?php echo rawurldecode($wp_query->query_vars['eventname']); ?>]</div>
