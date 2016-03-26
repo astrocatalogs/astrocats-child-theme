@@ -19,7 +19,7 @@ function theme_enqueue_styles() {
 	if ( $template_name = 'event.php' ) {
 		wp_enqueue_style( 'bokeh-css', "https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.css");
 		wp_enqueue_script( 'bokeh-js', "https://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.js");
-		wp_enqueue_style( 'event', 'event.css', array( 'bokeh-css' ) );
+		wp_enqueue_style( 'event', get_stylesheet_directory_uri() . '/event.css' );
 	}
 	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
