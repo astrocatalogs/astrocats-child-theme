@@ -25,10 +25,11 @@ get_header();
 <?php
 	function loadEventFrame($name) {
 		if (file_exists('/var/www/html/sne/sne/'.rawurldecode($name).'.html') ||
-			  file_exists('/var/www/html/sne/sne/'.rawurldecode($name).'.html.gz')) { ?>
+			file_exists('/var/www/html/sne/sne/'.rawurldecode($name).'.html.gz')) { ?>
 			<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
 			<iframe width=100% src="https://sne.space/sne/<?php echo $name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
+			</div>
 <?php 		return true;
 		}
 		return false;
