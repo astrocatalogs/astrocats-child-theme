@@ -34,7 +34,6 @@ get_header();
 		}
 		return false;
 	}
-
 	if (!loadEventFrame($wp_query->query_vars['eventname'])) {
 		$str = file_get_contents('/var/www/html/sne/sne/names.min.json');
 		$json = json_decode($str, true);
