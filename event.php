@@ -34,13 +34,17 @@ get_header();
 		}
 		return false;
 	}
-	if (!loadEventFrame($wp_query->query_vars['eventname'])) {
+	$eventname = $wp_query->query_vars['eventname'];
+	if (!loadEventFrame($eventname)) {
+		if (is_numeric(substr($eventname, 0, 3))) {
+			$eventname = 'SN'.$eventname;
+		}
 		$str = file_get_contents('/var/www/html/sne/sne/names.min.json');
 		$json = json_decode($str, true);
 		$found = false;
 		foreach ($json as $name => $entry) {
 			foreach ($entry as $alias) {
-				if(strpos($alias, $wp_query->query_vars['eventname']) !== false) {
+				if(strpos($alias, $eventname) !== false) {
 					if (loadEventFrame($name)) {
 						$found = true;
 					} else {
@@ -54,7 +58,7 @@ get_header();
 		}
 		if (!$found) {
 ?>
-			<div style="text-align:center;">Error: Invalid event name "<?php echo $wp_query->query_vars['eventname']; ?>"! [<?php echo rawurldecode($wp_query->query_vars['eventname']); ?>]</div>
+			<div style="text-align:center;">Error: Invalid event name "<?php echo $eventname; ?>"! [<?php echo rawurldecode($eventname); ?>]</div>
 <?php 	}
 	}
 ?>
