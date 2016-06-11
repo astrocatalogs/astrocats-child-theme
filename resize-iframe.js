@@ -1,5 +1,7 @@
-function resizeIframe(obj, height) {
-	if (typeof(height) === 'undefined') height = 950;
-	obj.style.height = obj.contentWindow.document.body.scrollHeight + height + 'px';
+function resizeIframe(obj) {
+	var iframeWin = obj.contentWindow || obj.contentDocument.parentWindow;
+	if (iframeWin.document.body) {
+		setTimeout( function() { obj.height = (iframeWin.document.body.scrollHeight || iframeWin.document.documentElement.scrollHeight) + 30 + 'px'; }, 10);
+	}
 	document.getElementById('loading').style.display = 'none';
 }

@@ -28,7 +28,7 @@ get_header();
 			file_exists('/var/www/html/sne/sne/'.rawurldecode($name).'.html.gz')) { ?>
 			<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
-			<iframe width=100% src="https://sne.space/sne/<?php echo $name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
+			<iframe width=100% scrolling="no" src="https://sne.space/sne/<?php echo $name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 			</div>
 <?php 		return true;
 		}
@@ -38,6 +38,10 @@ get_header();
 	if (!loadEventFrame($eventname)) {
 		if (is_numeric(substr($eventname, 0, 3))) {
 			$eventname = 'SN'.$eventname;
+		}
+		if ((substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 4)) && strlen($eventname) == 7) || 
+			(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
+			$eventname = strtoupper($eventname);
 		}
 		$str = file_get_contents('/var/www/html/sne/sne/names.min.json');
 		$json = json_decode($str, true);
