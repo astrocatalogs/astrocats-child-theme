@@ -13,3 +13,32 @@
 a:hover {
 	text-decoration: underline;
 }
+
+.aptf-tweet-box {
+	font-size: 9pt;
+}
+
+.aptf-tweet-name {
+	font-size: 9pt;
+}
+
+.aptf-tweet-date {
+	font-size: 9pt;
+}
+
+.aptf-single-tweet-wrapper {
+	margin-bottom: 5px;
+}
+
+.aptf-template-1 .aptf-tweet-content {
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 5px;
+}
+
+.aptf-template-1 .aptf-tweet-actions {
+	font-size: 10pt;
+	right: 5px;
+	top: 3px;
+}

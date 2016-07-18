@@ -23,12 +23,20 @@ get_header();
 ?>
 	<div class="page type-page status-publish hentry">
 <?php
+	$rootpath = '/var/www/html/sne/';
+	$htmlpath = 'sne/';
+	//$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
 	function loadEventFrame($name) {
-		if (file_exists('/var/www/html/sne/sne/'.rawurldecode($name).'.html') ||
-			file_exists('/var/www/html/sne/sne/'.rawurldecode($name).'.html.gz')) { ?>
+		global $rootpath, $htmlpath;
+		if (strpos($name, 'new-') !== false) {
+			$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
+		}
+		$newname = str_replace("new-", "", $name);
+		if (file_exists($rootpath.$htmlpath.rawurldecode($newname).'.html') ||
+			file_exists($rootpath.$htmlpath.rawurldecode($newname).'.html.gz')) { ?>
 			<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
-			<iframe width=100% scrolling="no" src="https://sne.space/sne/<?php echo $name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
+			<iframe width=100% scrolling="no" src="https://sne.space/<?php echo $htmlpath.$newname; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 			</div>
 <?php 		return true;
 		}
