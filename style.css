@@ -14,31 +14,64 @@ a:hover {
 	text-decoration: underline;
 }
 
-.aptf-tweet-box {
-	font-size: 9pt;
+.home .entry-content > p:first-child {
+	margin-bottom: 0!important;
 }
 
-.aptf-tweet-name {
-	font-size: 9pt;
+.aptf-template-5 .aptf-tweet-actions {
+	padding-top: 0;
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 3px;
+	white-space: nowrap;
+	float: right;
 }
 
-.aptf-tweet-date {
-	font-size: 9pt;
+.aptf-template-5 .aptf-tweet-actions a {
+	margin-right: 0;
+	color: #aaa!important;
 }
 
-.aptf-single-tweet-wrapper {
+.aptf-template-5 .aptf-tweet-box a {
+	color: #55acee!important;
+}
+
+.aptf-template-5 .aptf-tweet-content {
+	color: inherit!important;
+	background: #eee;
+	padding-bottom: 0;
+	padding-left: 0.5rem;
+	padding-top: 0;
+	padding-right: 5px;
 	margin-bottom: 5px;
 }
 
-.aptf-template-1 .aptf-tweet-content {
-	padding-left: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-right: 5px;
+.aptf-template-5 .aptf-tweet-content:after {
+	border-top: 7px solid #eeeeee;
+	left: 7px;
 }
 
-.aptf-template-1 .aptf-tweet-actions {
-	font-size: 10pt;
-	right: 5px;
-	top: 3px;
+.aptf-template-5 .aptf-tweet-box {
+	font-size: 9pt;
+	color: inherit;
+	padding-top: 3px;
+	padding-right: 5px;
+	display: inline-block;
+	margin-bottom: 2px;
+}
+
+.aptf-template-5 .aptf-tweet-box-footer {
+	font-size: 9pt;
+}
+
+i.fa.fa-reply {
+	margin-right: 9px;
+}
+
+i.fa:hover {
+	color: #55acee;
+}
+
+.fa-star:before {
+	content: "\f004"!important;
 }
