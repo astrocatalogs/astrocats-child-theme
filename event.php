@@ -24,14 +24,14 @@ get_header();
 	<div class="page type-page status-publish hentry">
 <?php
 	$rootpath = '/var/www/html/sne/';
-	$htmlpath = 'sne/';
+	$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
 	//$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
 	function loadEventFrame($name) {
 		global $rootpath, $htmlpath;
-		if (strpos($name, 'new-') !== false) {
-			$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
+		if (strpos($name, 'old-') !== false) {
+			$htmlpath = 'sne/';
 		}
-		$newname = str_replace("new-", "", $name);
+		$newname = str_replace("old-", "", $name);
 		if (file_exists($rootpath.$htmlpath.rawurldecode($newname).'.html') ||
 			file_exists($rootpath.$htmlpath.rawurldecode($newname).'.html.gz')) { ?>
 			<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
