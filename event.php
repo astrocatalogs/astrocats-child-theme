@@ -23,7 +23,7 @@ get_header();
 ?>
 	<div class="page type-page status-publish hentry">
 <?php
-	$rootpath = '/var/www/html/sne/';
+	$rootpath = '/root/';
 	$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
 	//$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
 	function loadEventFrame($name) {
@@ -51,7 +51,7 @@ get_header();
 			(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
 			$eventname = strtoupper($eventname);
 		}
-		$str = file_get_contents('/var/www/html/sne/sne/names.min.json');
+		$str = file_get_contents('/var/www/html/sne/astrocats/astrocats/supernovae/output/names.min.json');
 		$json = json_decode($str, true);
 		$found = false;
 		foreach ($json as $name => $entry) {
