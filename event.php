@@ -24,19 +24,15 @@ get_header();
 	<div class="page type-page status-publish hentry">
 <?php
 	$rootpath = '/root/';
-	$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
-	//$htmlpath = 'astrocats/astrocats/supernovae/output/html/';
+	$htmlpath = 'astrocats/astrocats/tidaldisruptions/output/html/';
+	//$htmlpath = 'astrocats/astrocats/tidaldisruptions/output/html/';
 	function loadEventFrame($name) {
 		global $rootpath, $htmlpath;
-		if (strpos($name, 'old-') !== false) {
-			$htmlpath = 'sne/';
-		}
-		$newname = str_replace("old-", "", $name);
-		if (file_exists($rootpath.$htmlpath.rawurldecode($newname).'.html') ||
-			file_exists($rootpath.$htmlpath.rawurldecode($newname).'.html.gz')) { ?>
-			<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
+		if (file_exists($rootpath.$htmlpath.rawurldecode($name).'.html') ||
+			file_exists($rootpath.$htmlpath.rawurldecode($name).'.html.gz')) { ?>
+			<div id="loading" style="text-align:center;"><img src="https://tde.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
-			<iframe width=100% scrolling="no" src="https://sne.space/<?php echo $htmlpath.$newname; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
+			<iframe width=100% scrolling="no" src="https://tde.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 			</div>
 <?php 		return true;
 		}
@@ -51,7 +47,7 @@ get_header();
 			(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
 			$eventname = strtoupper($eventname);
 		}
-		$str = file_get_contents('/var/www/html/sne/astrocats/astrocats/supernovae/output/names.min.json');
+		$str = file_get_contents('/var/www/html/tde/astrocats/astrocats/tidaldisruptions/output/names.min.json');
 		$json = json_decode($str, true);
 		$found = false;
 		foreach ($json as $name => $entry) {

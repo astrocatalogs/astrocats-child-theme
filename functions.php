@@ -1,16 +1,16 @@
 <?php
 function resize_iframe() {
-	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/sne-child-theme/resize-iframe.js' );
+	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/astrocats-child-theme/resize-iframe.js' );
 }
 function custom_rewrite_basic() {
-	add_rewrite_rule('^event/(.+)/?', 'index.php?page_id=1320&eventname=$matches[1]', 'top');
-	add_rewrite_rule('^sne/(.+)/?', 'index.php?page_id=1320&eventname=$matches[1]', 'top');
+	add_rewrite_rule('^event/(.+)/?', 'index.php?page_id=1121&eventname=$matches[1]', 'top');
+	add_rewrite_rule('^tde/(.+)/?', 'index.php?page_id=1121&eventname=$matches[1]', 'top');
 	add_rewrite_tag('%eventname%', '([^&]+)');
 }
 function event_title( $title ) {
 	global $wp_query;
     if ( is_page_template( 'event.php' ) ) {
-        return $wp_query->query_vars['eventname'] . ' - The Open Supernova Catalog';
+        return $wp_query->query_vars['eventname'] . ' - The Open TDE Catalog';
     }
     return $title;
 }
@@ -23,4 +23,10 @@ add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 add_action('init', 'custom_rewrite_basic');
 add_action('wp_enqueue_scripts', 'resize_iframe');
 add_filter('pre_get_document_title', 'event_title', 10, 3 );
+function astrocats_scripts() {
+    if (is_page()) {
+        wp_enqueue_style( 'event-page', '/wp-content/themes/astrocats-child-theme/event-page.css', array() );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'astrocats_scripts' );
 ?>
