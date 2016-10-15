@@ -171,6 +171,26 @@
     visibility: visible;
 }
 
+.stt .sttright {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 1px;
+    border-radius: 6px;
+	text-decoration: none;
+    position: absolute;
+	white-space: nowrap;
+	top: -1px;
+	left: 100%;
+    z-index: 1;
+}
+
+/* Show the stt text when you mouse over the stt container */
+.stt:hover .sttright {
+    visibility: visible;
+}
+
 .sme {
 	-moz-box-shadow:inset 0px 1px 3px 0px #fff6af;
 	-webkit-box-shadow:inset 0px 1px 3px 0px #fff6af;
