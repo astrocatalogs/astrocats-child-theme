@@ -44,6 +44,8 @@
 	font-family: Futura,Century Gothic,AppleGothic,sans-serif;
 	font-size: 10pt;
     width: 100%;
+	background-color: white;
+	padding: 6px;
 }
 
 .event-body a {
