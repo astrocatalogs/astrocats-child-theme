@@ -1,10 +1,16 @@
 <?php
+$tt = explode("\n", file_get_contents(__DIR__ . '/tt.dat'));
+$stem = trim($tt[0]);
+$modu = trim($tt[1]);
+$pid = trim($tt[2]);
+
 function resize_iframe() {
 	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/astrocats-child-theme/resize-iframe.js' );
 }
 function custom_rewrite_basic() {
-	add_rewrite_rule('^event/(.+)/?', 'index.php?page_id=1121&eventname=$matches[1]', 'top');
-	add_rewrite_rule('^tde/(.+)/?', 'index.php?page_id=1121&eventname=$matches[1]', 'top');
+	global $stem, $pid;
+	add_rewrite_rule('^event/(.+)/?', 'index.php?page_id=' . $pid . '&eventname=$matches[1]', 'top');
+	add_rewrite_rule('^' . $stem . '/(.+)/?', 'index.php?page_id=' . $pid . '&eventname=$matches[1]', 'top');
 	add_rewrite_tag('%eventname%', '([^&]+)');
 }
 function event_title( $title ) {
