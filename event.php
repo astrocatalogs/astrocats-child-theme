@@ -28,9 +28,9 @@ get_header();
 	<div class="page type-page status-publish hentry">
 <?php
 	$rootpath = '/root/';
-	$htmlpath = 'astrocats/astrocats/' + $modu + '/output/html/';
+	$htmlpath = 'astrocats/astrocats/' . $modu . '/output/html/';
 	function loadEventFrame($name) {
-		global $rootpath, $htmlpath;
+		global $rootpath, $htmlpath, $stem;
 		if (file_exists($rootpath.$htmlpath.rawurldecode($name).'.html') ||
 			file_exists($rootpath.$htmlpath.rawurldecode($name).'.html.gz')) { ?>
 			<div id="loading" style="text-align:center;"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
@@ -50,7 +50,7 @@ get_header();
 			(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
 			$eventname = strtoupper($eventname);
 		}
-		$str = file_get_contents('/var/www/html/' + $stem + '/astrocats/astrocats/' + $modu + '/output/names.min.json');
+		$str = file_get_contents('/var/www/html/' . $stem . '/astrocats/astrocats/' . $modu . '/output/names.min.json');
 		$json = json_decode($str, true);
 		$found = false;
 		foreach ($json as $name => $entry) {
