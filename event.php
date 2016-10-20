@@ -36,7 +36,7 @@ get_header();
 			<div id="loading" style="text-align:center;"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
 			<?php if ($entered_name) { ?>
-			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Event "<?php echo $entered_name; ?>" not found, returning closest match.</div>
+			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo $entered_name; ?>" not found, returning closest match.</div>
 			<?php } ?>
 			<iframe width=100% scrolling="no" src="https://<?php echo $stem; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 			</div>
