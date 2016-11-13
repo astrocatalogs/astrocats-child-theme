@@ -29,46 +29,71 @@ get_header();
 <?php
 	$rootpath = '/root/';
 	$htmlpath = 'astrocats/astrocats/' . $modu . '/output/html/';
-	function loadEventFrame($name) {
+	function loadEventFrame($name, $entered_name = false) {
 		global $rootpath, $htmlpath, $stem;
 		if (file_exists($rootpath.$htmlpath.rawurldecode($name).'.html') ||
 			file_exists($rootpath.$htmlpath.rawurldecode($name).'.html.gz')) { ?>
 			<div id="loading"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
+			<?php if ($entered_name) { ?>
+			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo $entered_name; ?>" not found, returning closest match.</div>
+			<?php } ?>
 			<iframe width=100% scrolling="no" src="https://<?php echo $stem; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 			</div>
 <?php 		return true;
 		}
 		return false;
 	}
-	$eventname = $wp_query->query_vars['eventname'];
+	$oname = $wp_query->query_vars['eventname'];
+	$eventname = $oname;
 	if (!loadEventFrame($eventname)) {
+		$found = false;
 		if (is_numeric(substr($eventname, 0, 3))) {
 			$eventname = 'SN'.$eventname;
 		}
-		if (count($eventname) > 3 && substr($eventname, 0, 3) == 'SN ') {
-			$eventname = str_replace('SN ', 'SN', $eventname);
-		}
-		if ((substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 4)) && strlen($eventname) == 7) || 
-			(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
-			$eventname = strtoupper($eventname);
-		}
-		$str = file_get_contents('/var/www/html/' . $stem . '/astrocats/astrocats/' . $modu . '/output/names.min.json');
-		$json = json_decode($str, true);
-		$found = false;
-		foreach ($json as $name => $entry) {
-			foreach ($entry as $alias) {
-				if($alias == $eventname) {
-					if (loadEventFrame($name)) {
-						$found = true;
+		if (!loadEventFrame($eventname)) {
+			if ((substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 4)) && strlen($eventname) == 7) || 
+				(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
+				$eventname = strtoupper($eventname);
+			}
+			$str = file_get_contents('/var/www/html/' . $stem . '/astrocats/astrocats/' . $modu . '/output/names.min.json');
+			$json = json_decode($str, true);
+			$levs = [];
+			foreach ($json as $name => $entry) {
+				$min_lev = 100;
+				foreach ($entry as $alias) {
+					if($alias == $eventname || str_replace('SN', 'AT', $eventname) == $alias) {
+						if (loadEventFrame($name)) {
+							$found = true;
+						} elseif (loadEventFrame(str_replace('SN', 'AT', $name))) {
+							$found = true;
+						} else {
+							foreach ($entry as $alias2) {
+								if (loadEventFrame($alias2) ||
+									loadEventFrame(str_replace('SN', 'AT', $alias2))) $found = true;
+							}	
+						}
+						break 2;
 					} else {
-						foreach ($entry as $alias2) {
-							if (loadEventFrame($alias2)) $found = true;
-						}	
+						$lev = levenshtein($alias, $eventname);
+						if ($lev < $min_lev) {
+							$min_lev = $lev;
+						}
 					}
-					break 2;
+					$levs[$name] = $min_lev;
 				}
 			}
+			if (!$found) {
+				// Getting really desperate here!
+				if (min($levs) < 4) {
+					$lev_name = array_search(min($levs), $levs);
+					if (loadEventFrame($lev_name, $oname)) {
+						$found = true;
+					}
+				}
+			}
+		} else {
+			$found = true;
 		}
 		if (!$found) {
 ?>
