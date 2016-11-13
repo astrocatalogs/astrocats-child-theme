@@ -33,7 +33,7 @@ get_header();
 		global $rootpath, $htmlpath, $stem;
 		if (file_exists($rootpath.$htmlpath.rawurldecode($name).'.html') ||
 			file_exists($rootpath.$htmlpath.rawurldecode($name).'.html.gz')) { ?>
-			<div id="loading" style="text-align:center;"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
+			<div id="loading"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
 			<?php if ($entered_name) { ?>
 			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo $entered_name; ?>" not found, returning closest match.</div>
