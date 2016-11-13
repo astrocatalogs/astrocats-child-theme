@@ -33,7 +33,7 @@ get_header();
 		global $rootpath, $htmlpath, $stem;
 		if (file_exists($rootpath.$htmlpath.rawurldecode($name).'.html') ||
 			file_exists($rootpath.$htmlpath.rawurldecode($name).'.html.gz')) { ?>
-			<div id="loading" style="text-align:center;"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
+			<div id="loading"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
 			<iframe width=100% scrolling="no" src="https://<?php echo $stem; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 			</div>
@@ -45,6 +45,9 @@ get_header();
 	if (!loadEventFrame($eventname)) {
 		if (is_numeric(substr($eventname, 0, 3))) {
 			$eventname = 'SN'.$eventname;
+		}
+		if (count($eventname) > 3 && substr($eventname, 0, 3) == 'SN ') {
+			$eventname = str_replace('SN ', 'SN', $eventname);
 		}
 		if ((substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 4)) && strlen($eventname) == 7) || 
 			(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {

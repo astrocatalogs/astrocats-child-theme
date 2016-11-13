@@ -12,6 +12,10 @@
  * @since parabola 0.5
  */
 
+$tt = explode("\n", file_get_contents(__DIR__ . '/tt.dat'));
+$stem = trim($tt[0]);
+$modu = trim($tt[1]);
+
 global $wp_query;
 get_header();
 ?>
@@ -20,9 +24,9 @@ get_header();
 	<div id="content" role="main">
 	<?php cryout_before_content_hook(); ?>
 	<div class="page type-page status-publish hentry">
-		<div id="loading" style="text-align:center;"><img src="https://sne.space/wp-content/themes/sne-child-theme/loading.gif"><br>Loading...</div>
+		<div id="loading" style="text-align:center;"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/<?php echo $stem; ?>-child-theme/loading.gif"><br>Loading...</div>
 		<div style="overflow:auto;-webkit-overflow-scrolling:touch">
-		<iframe width=100% src="https://sne.space/astrocats/astrocats/supernovae/output/html/sne-locations.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
+		<iframe width=100% src="https://<?php echo $stem; ?>.space/astrocats/astrocats/<?php echo $modu; ?>/output/html/<?php echo $stem; ?>-locations.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
 		</div>
 	</div>
 	<?php cryout_after_content_hook(); ?>
