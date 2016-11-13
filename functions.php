@@ -3,6 +3,7 @@ $tt = explode("\n", file_get_contents(__DIR__ . '/tt.dat'));
 $stem = trim($tt[0]);
 $modu = trim($tt[1]);
 $pid = trim($tt[2]);
+$titl = trim($tt[3]);
 
 function resize_iframe() {
 	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/astrocats-child-theme/resize-iframe.js' );
@@ -16,7 +17,7 @@ function custom_rewrite_basic() {
 function event_title( $title ) {
 	global $wp_query;
     if ( is_page_template( 'event.php' ) ) {
-        return $wp_query->query_vars['eventname'] . ' - The Open TDE Catalog';
+        return $wp_query->query_vars['eventname'] . ' - The Open ' + $titl + ' Catalog';
     }
     return $title;
 }

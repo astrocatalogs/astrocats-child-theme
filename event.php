@@ -51,6 +51,9 @@ get_header();
 		if (is_numeric(substr($eventname, 0, 3))) {
 			$eventname = 'SN'.$eventname;
 		}
+		if (substr($eventname, 0, 2) == 'sn') {
+			$eventname = str_replace('sn', 'SN', $eventname);
+		}
 		if (!loadEventFrame($eventname)) {
 			if ((substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 4)) && strlen($eventname) == 7) || 
 				(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
