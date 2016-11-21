@@ -31,8 +31,8 @@ get_header();
 	$htmlpath = 'astrocats/astrocats/' . $modu . '/output/html/';
 	function loadEventFrame($name, $entered_name = false) {
 		global $rootpath, $htmlpath, $stem;
-		if (file_exists($rootpath.$htmlpath.rawurldecode($name).'.html') ||
-			file_exists($rootpath.$htmlpath.rawurldecode($name).'.html.gz')) { ?>
+		if (file_exists($rootpath.$htmlpath.$name.'.html') ||
+			file_exists($rootpath.$htmlpath.$name.'.html.gz')) { ?>
 			<div id="loading"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
 			<?php if ($entered_name) { ?>
@@ -45,7 +45,7 @@ get_header();
 		return false;
 	}
 	$oname = $wp_query->query_vars['eventname'];
-	$eventname = $oname;
+	$eventname = rawurldecode($oname);
 	if (!loadEventFrame($eventname)) {
 		$found = false;
 		if (is_numeric(substr($eventname, 0, 3))) {
@@ -54,10 +54,16 @@ get_header();
 		if (substr($eventname, 0, 2) == 'sn') {
 			$eventname = str_replace('sn', 'SN', $eventname);
 		}
+		if (substr($eventname, 0, 3) == 'SN ') {
+			$eventname = str_replace('SN ', 'SN', $eventname);
+		}
 		if (!loadEventFrame($eventname)) {
-			if ((substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 4)) && strlen($eventname) == 7) || 
-				(substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3)) && strlen($eventname) == 6)) {
-				$eventname = strtoupper($eventname);
+			if (substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3))) {
+				if (strlen($eventname) == 7) {
+					$eventname = strtoupper($eventname);
+				} else {
+					$eventname = substr($eventname, 0, 6) . strtolower(substr($eventname, 6));
+				}
 			}
 			$str = file_get_contents('/var/www/html/' . $stem . '/astrocats/astrocats/' . $modu . '/output/names.min.json');
 			$json = json_decode($str, true);
@@ -78,7 +84,7 @@ get_header();
 						}
 						break 2;
 					} else {
-						$lev = levenshtein($alias, $eventname);
+						$lev = levenshtein($alias, $eventname, 3, 1, 3);
 						if ($lev < $min_lev) {
 							$min_lev = $lev;
 						}
@@ -100,7 +106,7 @@ get_header();
 		}
 		if (!$found) {
 ?>
-			<div style="text-align:center;">Error: Invalid event name "<?php echo $eventname; ?>"! [<?php echo rawurldecode($eventname); ?>]</div>
+			<div style="text-align:center;">Error: Invalid event name "<?php echo $eventname; ?>"! [<?php echo $eventname; ?>]</div>
 <?php 	}
 	}
 ?>
