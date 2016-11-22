@@ -48,6 +48,7 @@ get_header();
 	$eventname = rawurldecode($oname);
 	if (!loadEventFrame($eventname)) {
 		$found = false;
+		$eventname = str_replace('.html', '', $eventname);
 		if (is_numeric(substr($eventname, 0, 3))) {
 			$eventname = 'SN'.$eventname;
 		}

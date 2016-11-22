@@ -17,7 +17,7 @@ function custom_rewrite_basic() {
 function event_title( $title ) {
 	global $wp_query;
     if ( is_page_template( 'event.php' ) ) {
-        return $wp_query->query_vars['eventname'] . ' - The Open ' + $titl + ' Catalog';
+        return $wp_query->query_vars['eventname'] . ' - The Open ' . $titl . ' Catalog';
     }
     return $title;
 }
@@ -29,7 +29,7 @@ function theme_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 add_action('init', 'custom_rewrite_basic');
 add_action('wp_enqueue_scripts', 'resize_iframe');
-add_filter('pre_get_document_title', 'event_title', 10, 3 );
+add_filter('pre_get_document_title', 'event_title', 10, 1 );
 function astrocats_scripts() {
     if (is_page()) {
         wp_enqueue_style( 'event-page', '/wp-content/themes/astrocats-child-theme/event-page.css', array() );
