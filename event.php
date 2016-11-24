@@ -38,7 +38,7 @@ get_header();
 			<?php if ($entered_name) { ?>
 			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo $entered_name; ?>" not found, returning closest match.</div>
 			<?php } ?>
-			<iframe width=100% scrolling="no" src="https://<?php echo $stem; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="resizeIframe(this)"></iframe>
+			<iframe id="themeframe" width=100% scrolling="no" src="https://<?php echo $stem; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="autoResize();"></iframe>
 			</div>
 <?php 		return true;
 		}
