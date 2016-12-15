@@ -28,9 +28,9 @@ function theme_enqueue_styles() {
 #add_action('wp_enqueue_scripts', 'my_scripts_method');
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 add_action('init', 'custom_rewrite_basic');
-add_action('wp_enqueue_scripts', 'resize_iframe');
 add_filter('pre_get_document_title', 'event_title', 10, 1 );
 function astrocats_scripts() {
+	resize_iframe();
     if (is_page()) {
         wp_enqueue_style( 'event-page', '/wp-content/themes/astrocats-child-theme/event-page.css', array() );
     }
