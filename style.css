@@ -23,7 +23,7 @@ div.post, div.page, div.hentry, .yoyo > li {
 }
 
 #content, #content input, #content textarea {
-	line-height: inherit!important;
+	// line-height: inherit!important;
 }
 
 .home .entry-content > p:first-of-type,
