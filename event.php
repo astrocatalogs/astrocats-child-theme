@@ -46,69 +46,64 @@ get_header();
 	}
 	$oname = $wp_query->query_vars['eventname'];
 	$eventname = rawurldecode($oname);
-	if (!loadEventFrame($eventname)) {
-		$found = false;
-		$eventname = str_replace('.html', '', $eventname);
-		if (is_numeric(substr($eventname, 0, 3))) {
-			$eventname = 'SN'.$eventname;
-		}
-		if (substr($eventname, 0, 2) == 'sn') {
-			$eventname = str_replace('sn', 'SN', $eventname);
-		}
-		if (substr($eventname, 0, 3) == 'SN ') {
-			$eventname = str_replace('SN ', 'SN', $eventname);
-		}
-		if (!loadEventFrame($eventname)) {
-			if (substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3))) {
-				if (strlen($eventname) == 7) {
-					$eventname = strtoupper($eventname);
-				} else {
-					$eventname = substr($eventname, 0, 6) . strtolower(substr($eventname, 6));
-				}
-			}
-			$str = file_get_contents('/var/www/html/' . $stem . '/astrocats/astrocats/' . $modu . '/output/names.min.json');
-			$json = json_decode($str, true);
-			$levs = [];
-			foreach ($json as $name => $entry) {
-				$min_lev = 100;
-				foreach ($entry as $alias) {
-					if($alias == $eventname || str_replace('SN', 'AT', $eventname) == $alias) {
-						if (loadEventFrame($name)) {
-							$found = true;
-						} elseif (loadEventFrame(str_replace('SN', 'AT', $name))) {
-							$found = true;
-						} else {
-							foreach ($entry as $alias2) {
-								if (loadEventFrame($alias2) ||
-									loadEventFrame(str_replace('SN', 'AT', $alias2))) $found = true;
-							}	
-						}
-						break 2;
-					} else {
-						$lev = levenshtein($alias, $eventname, 3, 1, 3);
-						if ($lev < $min_lev) {
-							$min_lev = $lev;
-						}
-					}
-					$levs[$name] = $min_lev;
-				}
-			}
-			if (!$found) {
-				// Getting really desperate here!
-				if (min($levs) < 4) {
-					$lev_name = array_search(min($levs), $levs);
-					if (loadEventFrame($lev_name, $oname)) {
-						$found = true;
-					}
-				}
-			}
+	$eventname = str_replace('.html', '', $eventname);
+	$count = 1;
+	if (is_numeric(substr($eventname, 0, 3))) {
+		$eventname = 'SN'.$eventname;
+	}
+	if (substr($eventname, 0, 2) == 'sn') {
+		$eventname = str_replace('sn', 'SN', $eventname, $count);
+	}
+	if (substr($eventname, 0, 3) == 'SN ') {
+		$eventname = str_replace('SN ', 'SN', $eventname, $count);
+	}
+	if (substr($eventname, 0, 2) == 'SN' && is_numeric(substr($eventname, 2, 3))) {
+		if (strlen($eventname) == 7) {
+			$eventname = strtoupper($eventname);
 		} else {
-			$found = true;
+			$eventname = substr($eventname, 0, 6) . strtolower(substr($eventname, 6));
 		}
-		if (!$found) {
+	}
+	$str = file_get_contents('/var/www/html/' . $stem . '/astrocats/astrocats/' . $modu . '/output/names.min.json');
+	$json = json_decode($str, true);
+	$levs = [];
+	foreach ($json as $name => $entry) {
+		$min_lev = 100;
+		foreach ($entry as $alias) {
+			if($alias == $eventname || str_replace('SN', 'AT', $eventname) == $alias) {
+				if (loadEventFrame($name)) {
+					$found = true;
+				} elseif (loadEventFrame(str_replace('SN', 'AT', $name))) {
+					$found = true;
+				} else {
+					foreach ($entry as $alias2) {
+						if (loadEventFrame($alias2) ||
+							loadEventFrame(str_replace('SN', 'AT', $alias2))) $found = true;
+					}	
+				}
+				break 2;
+			} else {
+				$lev = levenshtein($alias, $eventname, 3, 1, 3);
+				if ($lev < $min_lev) {
+					$min_lev = $lev;
+				}
+			}
+			$levs[$name] = $min_lev;
+		}
+	}
+	if (!$found) {
+		// Getting really desperate here!
+		if (min($levs) < 4) {
+			$lev_name = array_search(min($levs), $levs);
+			if (loadEventFrame($lev_name, $oname)) {
+				$found = true;
+			}
+		}
+	}
+	if (!$found) {
 ?>
 			<div style="text-align:center;">Error: Invalid event name "<?php echo $eventname; ?>"! [<?php echo $eventname; ?>]</div>
-<?php 	}
+<?php
 	}
 ?>
 	</div>
