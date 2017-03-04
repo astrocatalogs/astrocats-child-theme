@@ -36,7 +36,7 @@ get_header();
 			<div id="loading"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
 			<?php if ($entered_name) { ?>
-			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo $entered_name; ?>" not found, returning closest match.</div>
+			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo rawurldecode($entered_name); ?>" not found, returning closest match.</div>
 			<?php } ?>
 			<iframe id="themeframe" width=100% scrolling="no" src="https://<?php echo $stem; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="autoResize();"></iframe>
 			</div>
@@ -68,6 +68,10 @@ get_header();
 	$nbystr = file_get_contents('/var/www/html/' . $stem . '/astrocats/astrocats/' . $modu . '/output/names-by.min.json');
 	$jsons = [json_decode($nstr, true), json_decode($nbystr, true)];
 	$levs = [];
+	// Temporary, remove later
+	if (loadEventFrame($eventname)) {
+		return;
+	}
 	foreach ($jsons as $json) {
 		foreach ($json as $name => $entry) {
 			$min_lev = 100;
