@@ -69,9 +69,9 @@ get_header();
 	$jsons = [json_decode($nstr, true), json_decode($nbystr, true)];
 	$levs = [];
 	// Temporary, remove later
-	if (loadEventFrame($eventname)) {
-		return;
-	}
+	//if (loadEventFrame($eventname)) {
+	//	return;
+	//}
 	foreach ($jsons as $json) {
 		foreach ($json as $name => $entry) {
 			$min_lev = 100;
