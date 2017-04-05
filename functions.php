@@ -17,7 +17,7 @@ function custom_rewrite_basic() {
 function event_title( $title ) {
 	global $wp_query;
     if ( is_page_template( 'event.php' ) ) {
-        return $wp_query->query_vars['eventname'] . ' - The Open ' . $titl . ' Catalog';
+        return $wp_query->query_vars['eventname'] . ' - The Open ' . $title . ' Catalog';
     }
     return $title;
 }
