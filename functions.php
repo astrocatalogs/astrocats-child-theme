@@ -15,9 +15,9 @@ function custom_rewrite_basic() {
 	add_rewrite_tag('%eventname%', '([^&]+)');
 }
 function event_title( $title ) {
-	global $wp_query;
+	global $wp_query, $titl;
     if ( is_page_template( 'event.php' ) ) {
-        return $wp_query->query_vars['eventname'] . ' - The Open ' . $title . ' Catalog';
+        return $wp_query->query_vars['eventname'] . ' - The Open ' . $titl . ' Catalog';
     }
     return $title;
 }
