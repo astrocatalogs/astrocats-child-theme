@@ -15,6 +15,7 @@
 $tt = explode("\n", file_get_contents(__DIR__ . '/tt.dat'));
 $stem = trim($tt[0]);
 $modu = trim($tt[1]);
+$subd = trim($tt[4]);
 
 global $wp_query;
 get_header();
@@ -30,15 +31,15 @@ get_header();
 	$rootpath = '/root/';
 	$htmlpath = 'astrocats/astrocats/' . $modu . '/output/html/';
 	function loadEventFrame($name, $entered_name = false) {
-		global $rootpath, $htmlpath, $stem;
+		global $rootpath, $htmlpath, $stem, $subd;
 		if (file_exists($rootpath.$htmlpath.$name.'.html') ||
 			file_exists($rootpath.$htmlpath.$name.'.html.gz')) { ?>
-			<div id="loading"><img src="https://<?php echo $stem; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
+			<div id="loading"><img src="https://<?php echo $subd; ?>.space/wp-content/themes/astrocats-child-theme/loading.gif"><br>Loading...</div>
 			<div style="overflow:auto;-webkit-overflow-scrolling:touch">
 			<?php if ($entered_name) { ?>
 			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo rawurldecode($entered_name); ?>" not found, returning closest match.</div>
 			<?php } ?>
-			<iframe id="themeframe" width=100% scrolling="no" src="https://<?php echo $stem; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="autoResize();"></iframe>
+			<iframe id="themeframe" width=100% scrolling="no" src="https://<?php echo $subd; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="autoResize();"></iframe>
 			</div>
 <?php 		return true;
 		}
