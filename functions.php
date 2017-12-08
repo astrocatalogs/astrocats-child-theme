@@ -6,7 +6,7 @@ $pid = trim($tt[2]);
 $titl = trim($tt[3]);
 
 function resize_iframe() {
-	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/astrocats-child-theme/resize-iframe.js' );
+	wp_enqueue_script( 'resize-iframe', '/wp-content/themes/astrocats-child-theme/resize-iframe.js', array('jquery') );
 }
 function custom_rewrite_basic() {
 	global $stem, $pid;
