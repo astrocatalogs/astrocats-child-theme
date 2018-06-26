@@ -39,7 +39,8 @@ get_header();
 			<?php if ($entered_name) { ?>
 			<div style="text-align:center; width:100%; color:orange"><strong>Warning:</strong> Exact event name "<?php echo rawurldecode($entered_name); ?>" not found, returning closest match.</div>
 			<?php } ?>
-			<iframe id="themeframe" width=100% scrolling="no" src="https://<?php echo $subd; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;" onload="autoResize();"></iframe>
+			<iframe onload="autoResize();" width=100% id="themeframe" scrolling="no" src="https://<?php echo $subd; ?>.space/<?php echo $htmlpath.$name; ?>.html" style="display:block;border:none;width=100%;"></iframe>
+			<script>iFrameResize({log:true, heightCalculationMethod:'max'})</script>
 			</div>
 <?php 		return true;
 		}
