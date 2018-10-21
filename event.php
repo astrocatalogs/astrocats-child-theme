@@ -53,6 +53,9 @@ get_header();
 	if (is_numeric(substr($eventname, 0, 3)) && strlen($eventname) <= 4) {
 		$eventname = 'SN'.$eventname;
 	}
+	if (is_numeric(substr($eventname, 0, 4)) && !is_numeric(substr($eventname, 4))) {
+		$eventname = 'SN'.$eventname;
+	}
 	if (substr($eventname, 0, 2) == 'sn') {
 		$eventname = str_replace('sn', 'SN', $eventname, $count);
 	}
